@@ -1,0 +1,1222 @@
+{
+    "states": [
+        {
+            "name": "Andhra Pradesh",
+            "cities": [
+                {
+                    "name": "Visakhapatnam",
+                    "subCities": []
+                },
+                {
+                    "name": "Vijayawada",
+                    "subCities": []
+                },
+                {
+                    "name": "Nellore",
+                    "subCities": []
+                },
+                {
+                    "name": "Kurnool",
+                    "subCities": []
+                },
+                {
+                    "name": "Rajahmundry",
+                    "subCities": []
+                },
+                {
+                    "name": "Kadapa",
+                    "subCities": []
+                },
+                {
+                    "name": "Tirupati",
+                    "subCities": []
+                },
+                {
+                    "name": "Anantapur",
+                    "subCities": []
+                },
+                {
+                    "name": "Eluru",
+                    "subCities": []
+                },
+                {
+                    "name": "Vizianagaram",
+                    "subCities": []
+                },
+                {
+                    "name": "Ongole",
+                    "subCities": []
+                },
+                {
+                    "name": "Machilipatnam",
+                    "subCities": []
+                },
+                {
+                    "name": "Tenali",
+                    "subCities": []
+                },
+                {
+                    "name": "Proddatur",
+                    "subCities": []
+                },
+                {
+                    "name": "Tadepalligudem",
+                    "subCities": []
+                },
+                {
+                    "name": "Chittoor",
+                    "subCities": []
+                },
+                {
+                    "name": "Bhimavaram",
+                    "subCities": []
+                },
+                {
+                    "name": "Srikakulam",
+                    "subCities": []
+                },
+                {
+                    "name": "Hindupur",
+                    "subCities": []
+                },
+                {
+                    "name": "Amalapuram",
+                    "subCities": []
+                },
+                {
+                    "name": "Madanapalle",
+                    "subCities": []
+                },
+                {
+                    "name": "Narasaraopet",
+                    "subCities": []
+                },
+                {
+                    "name": "Tadipatri",
+                    "subCities": []
+                },
+                {
+                    "name": "Gudivada",
+                    "subCities": []
+                },
+                {
+                    "name": "Palasa-Kasibugga",
+                    "subCities": []
+                },
+                {
+                    "name": "Guntakal",
+                    "subCities": []
+                },
+                {
+                    "name": "Dharmavaram",
+                    "subCities": []
+                },
+                {
+                    "name": "Ponnur",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Arunachal Pradesh",
+            "cities": [
+                {
+                    "name": "Itanagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Pasighat",
+                    "subCities": []
+                },
+                {
+                    "name": "Naharlagun",
+                    "subCities": []
+                },
+                {
+                    "name": "Ziro",
+                    "subCities": []
+                },
+                {
+                    "name": "Tawang",
+                    "subCities": []
+                },
+                {
+                    "name": "Bomdila",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Assam",
+            "cities": [
+                {
+                    "name": "Guwahati",
+                    "subCities": []
+                },
+                {
+                    "name": "Silchar",
+                    "subCities": []
+                },
+                {
+                    "name": "Dibrugarh",
+                    "subCities": []
+                },
+                {
+                    "name": "Jorhat",
+                    "subCities": []
+                },
+                {
+                    "name": "Nagaon",
+                    "subCities": []
+                },
+                {
+                    "name": "Tinsukia",
+                    "subCities": []
+                },
+                {
+                    "name": "Tezpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Karimganj",
+                    "subCities": []
+                },
+                {
+                    "name": "Diphu",
+                    "subCities": []
+                },
+                {
+                    "name": "North Lakhimpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Goalpara",
+                    "subCities": []
+                },
+                {
+                    "name": "Hailakandi",
+                    "subCities": []
+                },
+                {
+                    "name": "Tezpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Sibsagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Bongaigaon",
+                    "subCities": []
+                },
+                {
+                    "name": "Dhubri",
+                    "subCities": []
+                },
+                {
+                    "name": "Mangaldoi",
+                    "subCities": []
+                },
+                {
+                    "name": "Nalbari",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Bihar",
+            "cities": [
+                {
+                    "name": "Patna",
+                    "subCities": []
+                },
+                {
+                    "name": "Gaya",
+                    "subCities": []
+                },
+                {
+                    "name": "Bhagalpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Muzaffarpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Purnia",
+                    "subCities": []
+                },
+                {
+                    "name": "Darbhanga",
+                    "subCities": []
+                },
+                {
+                    "name": "Arrah",
+                    "subCities": []
+                },
+                {
+                    "name": "Bihar Sharif",
+                    "subCities": []
+                },
+                {
+                    "name": "Katihar",
+                    "subCities": []
+                },
+                {
+                    "name": "Munger",
+                    "subCities": []
+                },
+                {
+                    "name": "Chhapra",
+                    "subCities": []
+                },
+                {
+                    "name": "Danapur",
+                    "subCities": []
+                },
+                {
+                    "name": "Saharsa",
+                    "subCities": []
+                },
+                {
+                    "name": "Hajipur",
+                    "subCities": []
+                },
+                {
+                    "name": "Samastipur",
+                    "subCities": []
+                },
+                {
+                    "name": "Dehri",
+                    "subCities": []
+                },
+                {
+                    "name": "Siwan",
+                    "subCities": []
+                },
+                {
+                    "name": "Motihari",
+                    "subCities": []
+                },
+                {
+                    "name": "Bettiah",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Chhattisgarh",
+            "cities": [
+                {
+                    "name": "Raipur",
+                    "subCities": []
+                },
+                {
+                    "name": "Bhilai",
+                    "subCities": []
+                },
+                {
+                    "name": "Durg",
+                    "subCities": []
+                },
+                {
+                    "name": "Raigarh",
+                    "subCities": []
+                },
+                {
+                    "name": "Jagdalpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Ambikapur",
+                    "subCities": []
+                },
+                {
+                    "name": "Korba",
+                    "subCities": []
+                },
+                {
+                    "name": "Rajnandgaon",
+                    "subCities": []
+                },
+                {
+                    "name": "Chirmiri",
+                    "subCities": []
+                },
+                {
+                    "name": "Bilaspur",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Delhi",
+            "cities": [
+                {
+                    "name": "North Delhi",
+                    "subCities": [
+                        "Civil Lines",
+                        "Model Town",
+                        "Kamla Nagar",
+                        "Mukherjee Nagar",
+                        "Pitampura",
+                        "Rohini",
+                        "Shalimar Bagh"
+                    ]
+                },
+                {
+                    "name": "South Delhi",
+                    "subCities": [
+                        "Hauz Khas",
+                        "Saket",
+                        "Malviya Nagar",
+                        "Green Park",
+                        "Vasant Kunj",
+                        "Defence Colony",
+                        "Greater Kailash",
+                        "Lajpat Nagar",
+                        "Safdarjung",
+                        "Kalkaji",
+                        "Sarita Vihar",
+                        "Chittaranjan Park"
+                    ]
+                },
+                {
+                    "name": "East Delhi",
+                    "subCities": [
+                        "Laxmi Nagar",
+                        "Preet Vihar",
+                        "Mayur Vihar",
+                        "Shahdara",
+                        "Patparganj",
+                        "Vasundhara Enclave"
+                    ]
+                },
+                {
+                    "name": "West Delhi",
+                    "subCities": [
+                        "Rajouri Garden",
+                        "Punjabi Bagh",
+                        "Janakpuri",
+                        "Patel Nagar",
+                        "Kirti Nagar"
+                    ]
+                },
+                {
+                    "name": "South-West Delhi",
+                    "subCities": [
+                        "Dwarka",
+                        "Najafgarh",
+                        "Saket",
+                        "Mehrauli",
+                        "Munirka",
+                        "R K Puram",
+                        "Mahipalpur",
+                        "Palam",
+                        "Dhaula Kuan",
+                        "Delhi Cantonment"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Ghaziabad",
+            "cities": [
+                {
+                    "name": "Vaishali",
+                    "subCities": []
+                },
+                {
+                    "name": "Indirapuram",
+                    "subCities": []
+                },
+                {
+                    "name": "Kaushambi",
+                    "subCities": []
+                },
+                {
+                    "name": "Vasundhara",
+                    "subCities": []
+                },
+                {
+                    "name": "Raj Nagar Extension",
+                    "subCities": []
+                },
+                {
+                    "name": "Crossings Republik",
+                    "subCities": []
+                },
+                {
+                    "name": "Mohan Nagar",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Noida",
+            "cities": [
+                {
+                    "name": "Sector 18",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 62",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 63",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 15A",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 16A",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 50",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 137",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 82",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 125",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 16B",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 93A",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 78",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 27",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 119",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 12",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 78",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 71",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Faridabad",
+            "cities": [
+                {
+                    "name": "Sector 16",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 21C",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 15",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 22",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 48",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 31",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 37",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 54",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 62",
+                    "subCities": []
+                },
+                {
+                    "name": "Sector 88",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Goa",
+            "cities": [
+                {
+                    "name": "Panaji",
+                    "subCities": []
+                },
+                {
+                    "name": "Margao",
+                    "subCities": []
+                },
+                {
+                    "name": "Vasco da Gama",
+                    "subCities": []
+                },
+                {
+                    "name": "Ponda",
+                    "subCities": []
+                },
+                {
+                    "name": "Mapusa",
+                    "subCities": []
+                },
+                {
+                    "name": "Bicholim",
+                    "subCities": []
+                },
+                {
+                    "name": "Canacona",
+                    "subCities": []
+                },
+                {
+                    "name": "Cuncolim",
+                    "subCities": []
+                },
+                {
+                    "name": "Curchorem",
+                    "subCities": []
+                },
+                {
+                    "name": "Valpoi",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Gujarat",
+            "cities": [
+                {
+                    "name": "Ahmedabad",
+                    "subCities": []
+                },
+                {
+                    "name": "Surat",
+                    "subCities": []
+                },
+                {
+                    "name": "Vadodara",
+                    "subCities": []
+                },
+                {
+                    "name": "Rajkot",
+                    "subCities": []
+                },
+                {
+                    "name": "Bhavnagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Jamnagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Junagadh",
+                    "subCities": []
+                },
+                {
+                    "name": "Anand",
+                    "subCities": []
+                },
+                {
+                    "name": "Navsari",
+                    "subCities": []
+                },
+                {
+                    "name": "Surendranagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Mehsana",
+                    "subCities": []
+                },
+                {
+                    "name": "Bharuch",
+                    "subCities": []
+                },
+                {
+                    "name": "Porbandar",
+                    "subCities": []
+                },
+                {
+                    "name": "Godhra",
+                    "subCities": []
+                },
+                {
+                    "name": "Nadiad",
+                    "subCities": []
+                },
+                {
+                    "name": "Navsari",
+                    "subCities": []
+                },
+                {
+                    "name": "Palanpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Porbandar",
+                    "subCities": []
+                },
+                {
+                    "name": "Rajkot",
+                    "subCities": []
+                },
+                {
+                    "name": "Surat",
+                    "subCities": []
+                },
+                {
+                    "name": "Surendranagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Valsad",
+                    "subCities": []
+                },
+                {
+                    "name": "Veraval",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Haryana",
+            "cities": [
+                {
+                    "name": "Ambala",
+                    "subCities": []
+                },
+                {
+                    "name": "Faridabad",
+                    "subCities": []
+                },
+                {
+                    "name": "Gurugram",
+                    "subCities": [
+                        "Sector 14",
+                        "Sector 29",
+                        "Sector 42",
+                        "DLF Cyber City",
+                        "Sohna Road",
+                        "MG Road",
+                        "Udyog Vihar",
+                        "Sector 56",
+                        "Sector 22",
+                        "Sector 57",
+                        "Sector 15",
+                        "Sector 44",
+                        "Sector 32",
+                        "Sector 30"
+                    ]
+                },
+                {
+                    "name": "Hisar",
+                    "subCities": []
+                },
+                {
+                    "name": "Karnal",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Himachal Pradesh",
+            "cities": [
+                {
+                    "name": "Shimla",
+                    "subCities": []
+                },
+                {
+                    "name": "Dharamshala",
+                    "subCities": []
+                },
+                {
+                    "name": "Kullu",
+                    "subCities": []
+                },
+                {
+                    "name": "Mandi",
+                    "subCities": []
+                },
+                {
+                    "name": "Solan",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Jammu and Kashmir",
+            "cities": [
+                {
+                    "name": "Srinagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Jammu",
+                    "subCities": []
+                },
+                {
+                    "name": "Anantnag",
+                    "subCities": []
+                },
+                {
+                    "name": "Baramulla",
+                    "subCities": []
+                },
+                {
+                    "name": "Kathua",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Jharkhand",
+            "cities": [
+                {
+                    "name": "Ranchi",
+                    "subCities": []
+                },
+                {
+                    "name": "Dhanbad",
+                    "subCities": []
+                },
+                {
+                    "name": "Jamshedpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Bokaro Steel City",
+                    "subCities": []
+                },
+                {
+                    "name": "Deoghar",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Karnataka",
+            "cities": [
+                {
+                    "name": "Bengaluru",
+                    "subCities": []
+                },
+                {
+                    "name": "Mysuru",
+                    "subCities": []
+                },
+                {
+                    "name": "Hubballi",
+                    "subCities": []
+                },
+                {
+                    "name": "Mangaluru",
+                    "subCities": []
+                },
+                {
+                    "name": "Belagavi",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Kerala",
+            "cities": [
+                {
+                    "name": "Thiruvananthapuram",
+                    "subCities": []
+                },
+                {
+                    "name": "Kochi",
+                    "subCities": []
+                },
+                {
+                    "name": "Kozhikode",
+                    "subCities": []
+                },
+                {
+                    "name": "Thrissur",
+                    "subCities": []
+                },
+                {
+                    "name": "Kollam",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Madhya Pradesh",
+            "cities": [
+                {
+                    "name": "Bhopal",
+                    "subCities": []
+                },
+                {
+                    "name": "Indore",
+                    "subCities": []
+                },
+                {
+                    "name": "Jabalpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Gwalior",
+                    "subCities": []
+                },
+                {
+                    "name": "Ujjain",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Maharashtra",
+            "cities": [
+                {
+                    "name": "Mumbai",
+                    "subCities": []
+                },
+                {
+                    "name": "Pune",
+                    "subCities": []
+                },
+                {
+                    "name": "Nagpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Thane",
+                    "subCities": []
+                },
+                {
+                    "name": "Nashik",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Manipur",
+            "cities": [
+                {
+                    "name": "Imphal",
+                    "subCities": []
+                },
+                {
+                    "name": "Thoubal",
+                    "subCities": []
+                },
+                {
+                    "name": "Bishnupur",
+                    "subCities": []
+                },
+                {
+                    "name": "Kakching",
+                    "subCities": []
+                },
+                {
+                    "name": "Ukhrul",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Meghalaya",
+            "cities": [
+                {
+                    "name": "Shillong",
+                    "subCities": []
+                },
+                {
+                    "name": "Tura",
+                    "subCities": []
+                },
+                {
+                    "name": "Jowai",
+                    "subCities": []
+                },
+                {
+                    "name": "Baghmara",
+                    "subCities": []
+                },
+                {
+                    "name": "Williamnagar",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Mizoram",
+            "cities": [
+                {
+                    "name": "Aizawl",
+                    "subCities": []
+                },
+                {
+                    "name": "Lunglei",
+                    "subCities": []
+                },
+                {
+                    "name": "Saiha",
+                    "subCities": []
+                },
+                {
+                    "name": "Champhai",
+                    "subCities": []
+                },
+                {
+                    "name": "Serchhip",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Nagaland",
+            "cities": [
+                {
+                    "name": "Kohima",
+                    "subCities": []
+                },
+                {
+                    "name": "Dimapur",
+                    "subCities": []
+                },
+                {
+                    "name": "Mokokchung",
+                    "subCities": []
+                },
+                {
+                    "name": "Tuensang",
+                    "subCities": []
+                },
+                {
+                    "name": "Wokha",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Odisha",
+            "cities": [
+                {
+                    "name": "Bhubaneswar",
+                    "subCities": []
+                },
+                {
+                    "name": "Cuttack",
+                    "subCities": []
+                },
+                {
+                    "name": "Rourkela",
+                    "subCities": []
+                },
+                {
+                    "name": "Sambalpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Puri",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Punjab",
+            "cities": [
+                {
+                    "name": "Chandigarh",
+                    "subCities": []
+                },
+                {
+                    "name": "Ludhiana",
+                    "subCities": []
+                },
+                {
+                    "name": "Amritsar",
+                    "subCities": []
+                },
+                {
+                    "name": "Jalandhar",
+                    "subCities": []
+                },
+                {
+                    "name": "Patiala",
+                    "subCities": []
+                },
+                {
+                    "name": "Amritsar",
+                    "subCities": []
+                },
+                {
+                    "name": "Jalandhar",
+                    "subCities": []
+                },
+                {
+                    "name": "Ludhiana",
+                    "subCities": []
+                },
+                {
+                    "name": "Pathankot",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Rajasthan",
+            "cities": [
+                {
+                    "name": "Jaipur",
+                    "subCities": []
+                },
+                {
+                    "name": "Jodhpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Udaipur",
+                    "subCities": []
+                },
+                {
+                    "name": "Kota",
+                    "subCities": []
+                },
+                {
+                    "name": "Bikaner",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Tamil Nadu",
+            "cities": [
+                {
+                    "name": "Chennai",
+                    "subCities": []
+                },
+                {
+                    "name": "Coimbatore",
+                    "subCities": []
+                },
+                {
+                    "name": "Madurai",
+                    "subCities": []
+                },
+                {
+                    "name": "Tiruchirappalli",
+                    "subCities": []
+                },
+                {
+                    "name": "Salem",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Telangana",
+            "cities": [
+                {
+                    "name": "Hyderabad",
+                    "subCities": []
+                },
+                {
+                    "name": "Warangal",
+                    "subCities": []
+                },
+                {
+                    "name": "Nizamabad",
+                    "subCities": []
+                },
+                {
+                    "name": "Karimnagar",
+                    "subCities": []
+                },
+                {
+                    "name": "Ramagundam",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "Uttar Pradesh",
+            "cities": [
+                {
+                    "name": "Lucknow",
+                    "subCities": []
+                },
+                {
+                    "name": "Kanpur",
+                    "subCities": []
+                },
+                {
+                    "name": "Agra",
+                    "subCities": []
+                },
+                {
+                    "name": "Varanasi",
+                    "subCities": []
+                },
+                {
+                    "name": "Meerut",
+                    "subCities": []
+                }
+            ]
+        },
+        {
+            "name": "West Bengal",
+            "cities": [
+                {
+                    "name": "Kolkata",
+                    "subCities": []
+                },
+                {
+                    "name": "Asansol",
+                    "subCities": []
+                },
+                {
+                    "name": "Siliguri",
+                    "subCities": []
+                },
+                {
+                    "name": "Durgapur",
+                    "subCities": []
+                },
+                {
+                    "name": "Bardhaman",
+                    "subCities": []
+                }
+            ]
+        }
+    ]
+}

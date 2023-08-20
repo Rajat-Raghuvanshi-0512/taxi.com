@@ -1,0 +1,17 @@
+{
+  "name": "taxi-website",
+  "version": "1.0.0",
+  "description": "taxi website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "krishnam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.1",
+    "nodemailer-mailgun-transport": "^2.1.5",
+    "nodemon": "^2.0.21"
+  }
+}

@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxi Web</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel='stylesheet' media='screen and (max-width: 1000px)' href='../static/responsive.css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script>
+        $(function () {
+            $.ajax({
+                url: '/data',
+                type: 'GET',
+                success: function (data) {
+                    var states = data.states;
+
+                    var cities = [];
+                    var subCities = [];
+
+                    $.each(states, function (index, state) {
+                        cities = cities.concat($.map(state.cities, function (city) {
+                            return city.name + ', ' + state.name;
+                        }));
+
+                        $.each(state.cities, function (index, city) {
+                            subCities = subCities.concat($.map(city.subCities, function (subCity) {
+                                return subCity + ', ' + city.name + ', ' + state.name;
+                            }));
+                        });
+                    });
+
+                    var allCities = cities.concat(subCities);
+
+                    $('#pickup_location, #drop_location').autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(allCities, request.term);
+
+                            response(results.slice(0, 10));
+                        },
+                        minLength: 1,
+                        select: function (event, ui) {
+                            var selected = ui.item.value;
+                            if (this.id === 'pickup_location') {
+                                $('#drop_location option[value="' + selected + '"]').prop('disabled', true);
+                            } else {
+                                $('#pickup_location option[value="' + selected + '"]').prop('disabled', true);
+                            }
+                        }
+                    });
+
+                    var pickupOptions = '';
+                    var dropOptions = '';
+                    $.each(allCities, function (index, city) {
+                        pickupOptions += '<option value="' + city + '">' + city + '</option>';
+                        dropOptions += '<option value="' + city + '">' + city + '</option>';
+                    });
+
+                    $('#pickup_location').append(pickupOptions);
+                    $('#drop_location').append(dropOptions);
+
+                    $('#pickup_location').on('change', function () {
+                        var selectedValue = $(this).val();
+                        $('#drop_location option[value="' + selectedValue + '"]').prop('disabled', true);
+                    });
+
+                    $('#drop_location').on('change', function () {
+                        var selectedValue = $(this).val();
+                        $('#pickup_location option[value="' + selectedValue + '"]').prop('disabled', true);
+                    });
+
+                    // Disable already selected options
+                    $('#pickup_location option:selected').each(function () {
+                        var value = $(this).val();
+                        $('#drop_location option[value="' + value + '"]').prop('disabled', true);
+                    });
+
+                    $('#drop_location option:selected').each(function () {
+                        var value = $(this).val();
+                        $('#pickup_location option[value="' + value + '"]').prop('disabled', true);
+                    });
+
+                },
+                error: function () {
+                    console.log('Error fetching data.');
+                }
+            });
+        });
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <nav id="navbar" class="navbar navbar-expand-lg">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand" href="#"> <span class="nav-design">
+                <picture>
+                    <source type="image/webp" srcset="/static/img/nav-design.webp">
+                    <source type="image/png" srcset="/static/img/nav-design.png">
+                    <img src="../static/img/nav-design.png" alt="">
+                </picture></span> NORTHERN INDIA TRIPS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-4">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item px-4">
+                        <a class="nav-link" href="#car-cards">vehicle</a>
+                    </li>
+                    <li class="nav-item px-4">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item px-4">
+                        <a class="nav-link" href="#bookcar">Booking</a>
+                    </li>
+                    <li class="nav-item px-4">
+                        <a class="nav-link" href="#footer">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav id="mobi-navbar" class="navbar navbar-expand-lg">
+        <div class="container-fluid px-5">
+            <a id="slider-hide" class="navbar-brand" href="#"> <span class="nav-design"><img
+                        src="../static/img/nav-design.png" alt=""></span> NORTHERN INDIA TRIPS</a>
+            <div id="slider-menu">
+                <div class="slider-home px-3">
+                    <a class="navbar-brand" href="#"> <span class="nav-design">
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/nav-design.webp">
+                            <source type="image/png" srcset="/static/img/nav-design.png">
+                            <img src="../static/img/nav-design.png" alt="">
+                        </picture></span> MENU</a>
+
+                    <ul id="navItems-mobi" class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home 
+                                <span class="navItems-icons">
+                                    <img src="../static/img/navItems-icons.png" alt="">
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">vehicle 
+                                <span class="navItems-icons">
+                                    <picture>
+                                        <source type="image/webp" srcset="/static/img/nav-design.webp">
+                                        <source type="image/png" srcset="/static/img/nav-design.png">
+                                        <img src="../static/img/navItems-icons.png" alt="">
+                                    </picture>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Booking 
+                                <span class="navItems-icons">
+                                    <picture>
+                                        <source type="image/webp" srcset="/static/img/navItems-icons.webp">
+                                        <source type="image/png" srcset="/static/img/navItems-icons.png">
+                                        <img src="../static/img/navItems-icons.png" alt="">
+                                    </picture>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Testimonials 
+                                <span class="navItems-icons">
+                                    <picture>
+                                        <source type="image/webp" srcset="/static/img/navItems-icons.webp">
+                                        <source type="image/png" srcset="/static/img/navItems-icons.png">
+                                        <img src="../static/img/navItems-icons.png" alt="">
+                                    </picture>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact 
+                                <span class="navItems-icons">
+                                    <picture>
+                                        <source type="image/webp" srcset="/static/img/navItems-icons.webp">
+                                        <source type="image/png" srcset="/static/img/navItems-icons.png">
+                                        <img src="../static/img/navItems-icons.png" alt="">
+                                    </picture>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="menu-cta-btnContainer"><button id="menu-cta-btn">Book Taxi</button></div>
+            </div>
+
+            <div id="hamburger">
+                <picture>
+                    <source type="image/webp" srcset="/static/img/hamburger.webp">
+                    <source type="image/png" srcset="/static/img/hamburger.png">
+                    <img src="../static/img/hamburger.png" id="hamburger-img" alt="">
+                </picture>
+                <picture>
+                    <source type="image/webp" srcset="/static/img/cross.webp">
+                    <source type="image/png" srcset="/static/img/cross.png">
+                    <img src="../static/img/cross.png" id="cross-img" alt="">
+                </picture>
+            </div>
+        </div>
+    </nav>
+
+    <div id="banner">
+
+        <div id="banner-content">
+            <div id="banner-heading">Welcome to <p> Northern India Trips</p>
+            </div>
+            <form id="banner-form">
+                <div id="banner-form-btn" class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="outstation active btn btn-light w-100 me-1 rounded-0 py-2">
+                        <span class="btn-img">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/outstation.webp">
+                                <source type="image/png" srcset="/static/img/outstation.png">
+                                <img src="../static/img/outstation.png" alt="">
+                            </picture>
+                        </span> Outstation
+                    </button>
+                    <button type="button" class="local btn btn-light w-100 ms-1 rounded-0 py-2">
+                        <span class="btn-img">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/local.webp">
+                                <source type="image/png" srcset="/static/img/local.png">
+                                <img src="../static/img/local.png" alt="">
+                            </picture>
+                        </span>Local
+                    </button>
+                </div>
+                <div id="radio-btn" class="d-flex justify-content-between align-items-center mt-4">
+                    <div class="form-check w-100 oneWay">
+                        <input class="form-check-input custom-radio-btn" type="radio" name="flexRadioDefault"
+                            id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1" >
+                            One Way
+                        </label>
+                    </div>
+                    <div class="form-check w-100 roundTrip">
+                        <input class="form-check-input custom-radio-btn" type="radio" name="flexRadioDefault"
+                            id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Round Trip
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <div class="form-details">
+                    <div class="picknDrop">
+                        <label for="pickup_location">Picking Up Location:</label>
+                        <input type="text" id="pickup_location" name="pickup_location" class="form-control my-2"
+                            placeholder="Enter pickup location" aria-label="From" required>
+                        <!-- <select id="pickup_location_select" name="pickup_location_select"></select> -->
+
+                    </div>
+                    <div class="picknDrop">
+                        <label for="drop_location">Dropping Location:</label>
+                        <input type="text" id="drop_location" name="drop_location" class="form-control my-2"
+                            placeholder="Enter drop Location" aria-label="To" required>
+                        <!-- <select id="drop_location_select" name="drop_location_select"></select> -->
+
+                    </div>
+                    <hr>
+                    <div class="d-flex form-last-row">
+                        <div id="contact-number">
+                            <label for="contact">Contact Number:</label>
+                            <input type="tel" id="phone" name="phone" class="form-control mt-2"
+                                placeholder="Enter Contact Number" aria-label="Last name" required>
+                        </div>
+                        <button type="submit" id="sendRequest"
+                            class="d-flex justify-content-center align-items-center banner-form-btn">Book Now</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <!-- <div style="background-color: red;"> -->
+        
+        </div>
+    </div>
+
+    <div id="about">
+        <div class="featurette d-flex align-items-center justify-content-center">
+            <div class="col-md-7 about-container">
+                <div class="about-design"></div>
+                <h1 class="featurette-heading fw-bold about-heading">About Us</h1>
+                <p class="lead about-para">Welcome to Northern India Trips, your reliable and trustworthy cab service
+                    provider based out of Delhi. With over a decade of experience in the industry, we specialize in
+                    offering a wide range of services including off-station tours, local taxi bookings, airport taxi
+                    pickups, and casual rides.
+                    <br>
+                    <br>
+                    We take pride in our commitment to providing our clients with a safe, comfortable and hassle-free
+                    travel experience. Our professional drivers and well-maintained fleet ensure a safe and comfortable
+                    travel experience. Book with us today and enjoy hassle-free travel at an affordable price.
+                </p>
+                <button class="readMore mt-5">Read More</button>
+                <div class="readMore-btn-mobi">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="readMore-mobi mt-3">Read More</button>
+                </div>
+            </div>
+            <div class="about-img">
+                <picture>
+                    <source type="image/webp" srcset="/static/img/about.webp">
+                    <source type="image/png" srcset="/static/img/about.png">
+                    <img src="../static/img/about.png" alt="">
+                </picture>
+            </div>
+        </div>
+
+        <div id="about-features">
+            <div id="about-features-container" class="container d-flex justify-content-around align-items-center">
+                <div class="about-features-content">
+                    <div class="double-tick-container">
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/double-tick.webp">
+                            <source type="image/png" srcset="/static/img/double-tick.png">
+                            <img src="../static/img/double-tick.png" alt="">
+                        </picture>
+                    </div>
+                    <h2>outstation taxi service</h2>
+                </div>
+                <div class="about-features-content">
+                    <div class="double-tick-container">
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/double-tick.webp">
+                            <source type="image/png" srcset="/static/img/double-tick.png">
+                            <img src="../static/img/double-tick.png" alt="">
+                        </picture>
+                    </div>
+                    <h2>local sightseeing taxi</h2>
+                </div>
+                <div class="about-features-content">
+                    <div class="double-tick-container">
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/double-tick.webp">
+                            <source type="image/png" srcset="/static/img/double-tick.png">
+                            <img src="../static/img/double-tick.png" alt="">
+                        </picture>
+                    </div>
+                    <h2>one way taxi service</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="features">
+        <div id="features-container-row1" class="d-flex align-items-center justify-content-center flex-container">
+            <div class="features-container container d-flex align-items-center justify-content-center yellow">
+                <div class="features-img">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/features-img1.webp">
+                        <source type="image/png" srcset="/static/img/features-img1.png">
+                        <img src="../static/img/features-img1.png" alt="">
+                    </picture>
+                </div>
+                <div class="features-content">
+                    <h5>Lowest Price</h5>
+                    <p>We believe that high-quality travel experiences should not come at a premium price. That's why we
+                        offer affordable and budget-friendly options </p>
+                </div>
+            </div>
+            <div class="features-container container d-flex align-items-center justify-content-center light-yellow">
+                <div class="features-img">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/features-img2.webp">
+                        <source type="image/png" srcset="/static/img/features-img2.png">
+                        <img src="../static/img/features-img2.png" alt="">
+                    </picture>
+                </div>
+                <div class="features-content">
+                    <h5>Transparent Pricing</h5>
+                    <p>Price you see is the price you pay. we offer our customers a clear and transparent pricing
+                        policy, with no hidden charges</p>
+                </div>
+            </div>
+            <div class="features-container container d-flex align-items-center justify-content-center yellow">
+                <div class="features-img">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/features-img3.webp">
+                        <source type="image/png" srcset="/static/img/features-img3.png">
+                        <img src="../static/img/features-img3.png" alt="">
+                    </picture>
+                </div>
+                <div class="features-content">
+                    <h5>Clean & Hygienic Cars</h5>
+                    <p>All our vehicles undergo regular cleaning and sanitization to ensure that our customers can
+                        travel in a safe and hygienic environment</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="features-container-row2" class="d-flex align-items-center justify-content-center flex-container">
+            <div class="features-container container d-flex align-items-center justify-content-center light-yellow">
+                <div class="features-img">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/features-img4.webp">
+                        <source type="image/png" srcset="/static/img/features-img4.png">
+                        <img src="../static/img/features-img4.png" alt="">
+                    </picture>
+                </div>
+                <div class="features-content">
+                    <h5>On Time Service</h5>
+                    <p>Our professional drivers are trained to plan their routes and schedules effectively, ensuring
+                        that you arrive at your destination on time, every time. </p>
+                </div>
+            </div>
+            <div class="features-container container d-flex align-items-center justify-content-center yellow">
+                <div class="features-img">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/features-img5.webp">
+                        <source type="image/png" srcset="/static/img/features-img5.png">
+                        <img src="../static/img/features-img5.png" alt="">
+                    </picture>
+                </div>
+                <div class="features-content">
+                    <h5>Professional Drivers</h5>
+                    <p>Our team of proffesional frivers is trained to provide our customers with a comfortable and safe
+                        travel experience</p>
+                </div>
+            </div>
+            <div class="features-container container d-flex align-items-center justify-content-center light-yellow">
+                <div class="features-img">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/features-img6.webp">
+                        <source type="image/png" srcset="/static/img/features-img6.png">
+                        <img src="../static/img/features-img6.png" alt="">
+                    </picture>
+                </div>
+                <div class="features-content">
+                    <h5>0 Cancelation Charge</h5>
+                    <p>Bookings can be canceled up to 48 hours in advance without incurring penalties, providing you
+                        with convenience and flexibility.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="car-cards">
+        <div id="car-cards-container" class="container">
+            <div class="car-cards-design"></div>
+            <h1 class="featurette-heading car-cards-heading">OUR CARS</h1>
+            <div id="car-cards-row1" class="d-flex align-items-center justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/car1.webp">
+                        <source type="image/png" srcset="/static/img/car1.png">
+                        <img src="../static/img/car1.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Wagon R</h5>
+                        <p class="card-text">Nunc rutrum feugiat lobortis. Vestibulum aliquet pretium diam accumsan
+                            vestibulum.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">VEHICLE TYPE <span class="vehicle-specs">XUV</span></li>
+                        <li class="list-group-item">MODEL <span class="vehicle-specs">2023</span></li>
+                        <li class="list-group-item">CAPACITY <span class="vehicle-specs">8 SEATER</span></li>
+                        <li class="list-group-item">PER KM RATE <span class="vehicle-specs">8.00</span></li>
+                    </ul>
+                    <div class="card-body d-flex align-items-czenter justify-content-center card-btn-container">
+                        <button class="btn w-100 card-btn"><a href="tel:+91 97179 38119" class="Linkstyling">Call Now</a></button>
+                        <button class="btn w-100 card-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</button>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/car2.webp">
+                        <source type="image/png" srcset="/static/img/car2.png">
+                        <img src="../static/img/car2.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Swift Dzire</h5>
+                        <p class="card-text">Nunc rutrum feugiat lobortis. Vestibulum aliquet pretium diam accumsan
+                            vestibulum.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">VEHICLE TYPE <span class="vehicle-specs">XUV</span></li>
+                        <li class="list-group-item">MODEL <span class="vehicle-specs">2023</span></li>
+                        <li class="list-group-item">CAPACITY <span class="vehicle-specs">8 SEATER</span></li>
+                        <li class="list-group-item">PER KM RATE <span class="vehicle-specs">8.00</span></li>
+                    </ul>
+                    <div class="card-body d-flex align-items-center justify-content-center card-btn-container">
+                        <button class="btn w-100 card-btn"><a href="tel:+91 97179 38119" class="Linkstyling">Call Now</a></button>
+                        <button class="btn w-100 card-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</button>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/car3.webp">
+                        <source type="image/png" srcset="/static/img/car3.png">
+                        <img src="../static/img/car3.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Honda City</h5>
+                        <p class="card-text">Nunc rutrum feugiat lobortis. Vestibulum aliquet pretium diam accumsan
+                            vestibulum.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">VEHICLE TYPE <span class="vehicle-specs">XUV</span></li>
+                        <li class="list-group-item">MODEL <span class="vehicle-specs">2023</span></li>
+                        <li class="list-group-item">CAPACITY <span class="vehicle-specs">8 SEATER</span></li>
+                        <li class="list-group-item">PER KM RATE <span class="vehicle-specs">8.00</span></li>
+                    </ul>
+                    <div class="card-body d-flex align-items-center justify-content-center card-btn-container">
+                        <button class="btn w-100 card-btn"><a href="tel:+91 97179 38119" class="Linkstyling">Call Now</a></button>
+                        <button class="btn w-100 card-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</button>
+                    </div>
+                </div>
+            </div>
+            <div id="car-cards-row2" class="d-flex align-items-center justify-content-center mt-5">
+                <div class="card" style="width: 18rem;">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/car4.webp">
+                        <source type="image/png" srcset="/static/img/car4.png">
+                        <img src="../static/img/car4.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Maruti Ertiga</h5>
+                        <p class="card-text">Nunc rutrum feugiat lobortis. Vestibulum aliquet pretium diam accumsan
+                            vestibulum.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">VEHICLE TYPE <span class="vehicle-specs">XUV</span></li>
+                        <li class="list-group-item">MODEL <span class="vehicle-specs">2023</span></li>
+                        <li class="list-group-item">CAPACITY <span class="vehicle-specs">8 SEATER</span></li>
+                        <li class="list-group-item">PER KM RATE <span class="vehicle-specs">8.00</span></li>
+                    </ul>
+                    <div class="card-body d-flex align-items-center justify-content-center card-btn-container">
+                        <button class="btn w-100 card-btn"><a href="tel:+91 97179 38119" class="Linkstyling">Call Now</a></button>
+                        <button class="btn w-100 card-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</button>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/car5.webp">
+                        <source type="image/png" srcset="/static/img/car5.png">
+                        <img src="../static/img/car5.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Crysta Innova</h5>
+                        <p class="card-text">Nunc rutrum feugiat lobortis. Vestibulum aliquet pretium diam accumsan
+                            vestibulum.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">VEHICLE TYPE <span class="vehicle-specs">XUV</span></li>
+                        <li class="list-group-item">MODEL <span class="vehicle-specs">2023</span></li>
+                        <li class="list-group-item">CAPACITY <span class="vehicle-specs">8 SEATER</span></li>
+                        <li class="list-group-item">PER KM RATE <span class="vehicle-specs">8.00</span></li>
+                    </ul>
+                    <div class="card-body d-flex align-items-center justify-content-center card-btn-container">
+                        <button class="btn w-100 card-btn"><a href="tel:+91 97179 38119" class="Linkstyling">Call Now</a></button>
+                        <button class="btn w-100 card-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</button>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/car6.webp">
+                        <source type="image/png" srcset="/static/img/car6.png">
+                        <img src="../static/img/car6.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Tempo Traveler</h5>
+                        <p class="card-text">Nunc rutrum feugiat lobortis. Vestibulum aliquet pretium diam accumsan
+                            vestibulum.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">VEHICLE TYPE <span class="vehicle-specs">XUV</span></li>
+                        <li class="list-group-item">MODEL <span class="vehicle-specs">2023</span></li>
+                        <li class="list-group-item">CAPACITY <span class="vehicle-specs">8 SEATER</span></li>
+                        <li class="list-group-item">PER KM RATE <span class="vehicle-specs">8.00</span></li>
+                    </ul>
+                    <div class="card-body d-flex align-items-center justify-content-center card-btn-container">
+                        <button class="btn w-100 card-btn"><a href="tel:+91 97179 38119" class="Linkstyling">Call Now</a></button>
+                        <button class="btn w-100 card-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="packages">
+        <div class="container position-relative">
+            <div class="packages-design"></div>
+            <h1 class="featurette-heading packages-heading">Popular Packages</h1>
+        </div>
+        <div class="packages-cards container">
+
+            <div id="packages-row1">
+                <div class="card bg-dark" style="width: 18rem;">
+                    <a href="#" class="btn btn-warning packages-top-btn">Delhi - Agra Same Day</p></a>
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/packages1.webp">
+                        <source type="image/png" srcset="/static/img/packages1.png">
+                        <img src="../static/img/packages1.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <ul class="card-text text-light packages-titles-container">
+                            <li class="packages-titles">Price</li>
+                            <li class="packages-titles">Round Trip</li>
+                            <li class="packages-titles">Duration</li>
+                        </ul>
+                        <ul class="card-text text-light packages-desc-container">
+                            <li class="packages-desc">Rs.2,200/-</li>
+                            <li class="packages-desc">Round Trip</li>
+                            <li class="packages-desc">4.4hrs</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                </div>
+                <div class="card bg-dark" style="width: 18rem;">
+                    <a href="#" class="btn btn-warning packages-top-btn">Delhi - jaipur</a>
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/packages2.webp">
+                        <source type="image/png" srcset="/static/img/packages2.png">
+                        <img src="../static/img/packages2.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <ul class="card-text text-light packages-titles-container">
+                            <li class="packages-titles">Price</li>
+                            <li class="packages-titles">Round Trip</li>
+                            <li class="packages-titles">Duration</li>
+                        </ul>
+                        <ul class="card-text text-light packages-desc-container">
+                            <li class="packages-desc">Rs.2,200/-</li>
+                            <li class="packages-desc">Round Trip</li>
+                            <li class="packages-desc">4.4hrs</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                </div>
+                <div class="card bg-dark" style="width: 18rem;">
+                    <a href="#" class="btn btn-warning packages-top-btn">Delhi - jaipur - Agra</a>
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/packages3.webp">
+                        <source type="image/png" srcset="/static/img/packages3.png">
+                        <img src="../static/img/packages3.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <ul class="card-text text-light packages-titles-container">
+                            <li class="packages-titles">Price</li>
+                            <li class="packages-titles">Round Trip</li>
+                            <li class="packages-titles">Duration</li>
+                        </ul>
+                        <ul class="card-text text-light packages-desc-container">
+                            <li class="packages-desc">Rs.2,200/-</li>
+                            <li class="packages-desc">Round Trip</li>
+                            <li class="packages-desc">4.4hrs</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                </div>
+            </div>
+
+            <div id="packages-row2">
+                <div class="card bg-dark" style="width: 18rem;">
+                    <a href="#" class="btn btn-warning packages-top-btn">Delhi - haridwar/rishikesh</a>
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/packages4.webp">
+                        <source type="image/png" srcset="/static/img/packages4.png">
+                        <img src="../static/img/packages4.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <ul class="card-text text-light packages-titles-container">
+                            <li class="packages-titles">Price</li>
+                            <li class="packages-titles">Round Trip</li>
+                            <li class="packages-titles">Duration</li>
+                        </ul>
+                        <ul class="card-text text-light packages-desc-container">
+                            <li class="packages-desc">Rs.2,200/-</li>
+                            <li class="packages-desc">Round Trip</li>
+                            <li class="packages-desc">4.4hrs</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                </div>
+                <div class="card bg-dark" style="width: 18rem;">
+                    <a href="#" class="btn btn-warning packages-top-btn">delhi sightseeing <p>same day</p></a>
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/packages5.webp">
+                        <source type="image/png" srcset="/static/img/packages5.png">
+                        <img src="../static/img/packages5.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <ul class="card-text text-light packages-titles-container">
+                            <li class="packages-titles">Price</li>
+                            <li class="packages-titles">Round Trip</li>
+                            <li class="packages-titles">Duration</li>
+                        </ul>
+                        <ul class="card-text text-light packages-desc-container">
+                            <li class="packages-desc">Rs.2,200/-</li>
+                            <li class="packages-desc">Round Trip</li>
+                            <li class="packages-desc">4.4hrs</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                </div>
+                <div class="card bg-dark" style="width: 18rem;">
+                    <a href="#" class="btn btn-warning packages-top-btn">rajasthan tour <p>same day</p></a>
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/packages6.webp">
+                        <source type="image/png" srcset="/static/img/packages6.png">
+                        <img src="../static/img/packages6.png" class="card-img-top" alt="...">
+                    </picture>
+                    <div class="card-body">
+                        <ul class="card-text text-light packages-titles-container">
+                            <li class="packages-titles">Price</li>
+                            <li class="packages-titles">Round Trip</li>
+                            <li class="packages-titles">Duration</li>
+                        </ul>
+                        <ul class="card-text text-light packages-desc-container">
+                            <li class="packages-desc">Rs.2,200/-</li>
+                            <li class="packages-desc">Round Trip</li>
+                            <li class="packages-desc">4.4hrs</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider main container -->
+        <div class="swiper packages-cards-mobi">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide packages-container-swiper">
+                    <div class="card bg-dark" style="width: 18rem;">
+                        <a href="#" class="btn btn-warning packages-top-btn">Delhi - Agra Same Day</a>
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/packages1.webp">
+                            <source type="image/png" srcset="/static/img/packages1.png">
+                            <img src="../static/img/packages1.png" class="card-img-top" alt="...">
+                        </picture>
+                        <div class="card-body">
+                            <ul class="card-text text-light packages-titles-container">
+                                <li class="packages-titles">Price</li>
+                                <li class="packages-titles">Round Trip</li>
+                                <li class="packages-titles">Duration</li>
+                            </ul>
+                            <ul class="card-text text-light packages-desc-container">
+                                <li class="packages-desc">Rs.2,200/-</li>
+                                <li class="packages-desc">Round Trip</li>
+                                <li class="packages-desc">4.4hrs</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                    </div>
+                </div>
+                <div class="swiper-slide packages-container-swiper">
+                    <div class="card bg-dark" style="width: 18rem;">
+                        <a href="#" class="btn btn-warning packages-top-btn">Delhi - jaipur</a>
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/packages2.webp">
+                            <source type="image/png" srcset="/static/img/packages2.png">
+                            <img src="../static/img/packages2.png" class="card-img-top" alt="...">
+                        </picture>
+                        <div class="card-body">
+                            <ul class="card-text text-light packages-titles-container">
+                                <li class="packages-titles">Price</li>
+                                <li class="packages-titles">Round Trip</li>
+                                <li class="packages-titles">Duration</li>
+                            </ul>
+                            <ul class="card-text text-light packages-desc-container">
+                                <li class="packages-desc">Rs.2,200/-</li>
+                                <li class="packages-desc">Round Trip</li>
+                                <li class="packages-desc">4.4hrs</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                    </div>
+                </div>
+                <div class="swiper-slide packages-container-swiper">
+                    <div class="card bg-dark" style="width: 18rem;">
+                        <a href="#" class="btn btn-warning packages-top-btn">Delhi - jaipur - Agra</a>
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/packages3.webp">
+                            <source type="image/png" srcset="/static/img/packages3.png">
+                            <img src="../static/img/packages3.png" class="card-img-top" alt="...">
+                        </picture>
+                        <div class="card-body">
+                            <ul class="card-text text-light packages-titles-container">
+                                <li class="packages-titles">Price</li>
+                                <li class="packages-titles">Round Trip</li>
+                                <li class="packages-titles">Duration</li>
+                            </ul>
+                            <ul class="card-text text-light packages-desc-container">
+                                <li class="packages-desc">Rs.2,200/-</li>
+                                <li class="packages-desc">Round Trip</li>
+                                <li class="packages-desc">4.4hrs</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                    </div>
+                </div>
+                <div class="swiper-slide packages-container-swiper">
+                    <div class="card bg-dark" style="width: 18rem;">
+                        <a href="#" class="btn btn-warning packages-top-btn">Delhi - Haridwar/<br>rishikesh</a>
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/packages4.webp">
+                            <source type="image/png" srcset="/static/img/packages4.png">
+                            <img src="../static/img/packages4.png" class="card-img-top" alt="...">
+                        </picture>
+                        <div class="card-body">
+                            <ul class="card-text text-light packages-titles-container">
+                                <li class="packages-titles">Price</li>
+                                <li class="packages-titles">Round Trip</li>
+                                <li class="packages-titles">Duration</li>
+                            </ul>
+                            <ul class="card-text text-light packages-desc-container">
+                                <li class="packages-desc">Rs.2,200/-</li>
+                                <li class="packages-desc">Round Trip</li>
+                                <li class="packages-desc">4.4hrs</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                    </div>
+                </div>
+                <div class="swiper-slide packages-container-swiper ">
+                    <div class="card bg-dark" style="width: 18rem;">
+                        <a href="#" class="btn btn-warning packages-top-btn">delhi sightseeing <p>same day</p></a>
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/packages5.webp">
+                            <source type="image/png" srcset="/static/img/packages5.png">
+                            <img src="../static/img/packages5.png" class="card-img-top" alt="...">
+                        </picture>
+                        <div class="card-body">
+                            <ul class="card-text text-light packages-titles-container">
+                                <li class="packages-titles">Price</li>
+                                <li class="packages-titles">Round Trip</li>
+                                <li class="packages-titles">Duration</li>
+                            </ul>
+                            <ul class="card-text text-light packages-desc-container">
+                                <li class="packages-desc">Rs.2,200/-</li>
+                                <li class="packages-desc">Round Trip</li>
+                                <li class="packages-desc">4.4hrs</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                    </div>
+                </div>
+                <div class="swiper-slide packages-container-swiper">
+                    <div class="card bg-dark" style="width: 18rem;">
+                        <a href="#" class="btn btn-warning packages-top-btn">rajasthan tour <p>same day</p></a>
+                        <picture>
+                            <source type="image/webp" srcset="/static/img/packages6.webp">
+                            <source type="image/png" srcset="/static/img/packages6.png">
+                            <img src="../static/img/packages6.png" class="card-img-top" alt="...">
+                        </picture>
+                        <div class="card-body">
+                            <ul class="card-text text-light packages-titles-container">
+                                <li class="packages-titles">Price</li>
+                                <li class="packages-titles">Round Trip</li>
+                                <li class="packages-titles">Duration</li>
+                            </ul>
+                            <ul class="card-text text-light packages-desc-container">
+                                <li class="packages-desc">Rs.2,200/-</li>
+                                <li class="packages-desc">Round Trip</li>
+                                <li class="packages-desc">4.4hrs</li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-warning packages-bottom-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</a>
+                    </div>
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+        </div>
+    </div>
+
+    <div id="testimonials">
+        <div class="container position-relative">
+            <div class="testimonials-design"></div>
+            <h1 class="featurette-heading testimonials-heading">What our clients say!</h1>
+        </div>
+        <!-- Slider main container -->
+        <div class="swiper testimonials-swiper" style="margin-top: -42px;">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <div class="container position-relative">
+                        <div class="quote1">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote1.webp">
+                                <source type="image/png" srcset="/static/img/quote1.png">
+                                <img src="../static/img/quote1.png" alt="">
+                            </picture>          
+                        </div>
+                        <div class="quote2">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote2.webp">
+                                <source type="image/png" srcset="/static/img/quote2.png">
+                                <img src="../static/img/quote2.png" alt="">
+                            </picture>          
+                        </div>
+                    </div>
+                    <div class="testimonials-container">
+                        <div class="identity">
+                            <div class="identity-img">
+                                <picture>
+                                    <source type="image/webp" srcset="/static/img/Kristina.webp">
+                                    <source type="image/png" srcset="/static/img/Kristina.png">
+                                    <img src="../static/img/Kristina.png" alt="">
+                                </picture>
+                            </div>
+                            <p class="testimonials-name">kristina k</p>
+                            <p class="testimonials-place">Exceptional!</p>
+                        </div>
+                        <div class="testimonials-para">
+                            <hr>
+                            <p>If you are looking for a reliable and honest guide in Delhi this is the right
+                                one!!!Narendra has been exceptional and we saw a lot more of Delhi than we expected! He
+                                know the city and was happy to accompany us strolling through one of the smallest
+                                streets in Delhi. His car is super clean, his English is good and he is always on time!
+                                We are beyond grateful to have had the opportunity to spend time with him and meeting
+                                him! Thank you once again Narendra, and we wish you all the very best to you and your
+                                family
+                            </p>
+                        </div>
+                        <div class="read-more-btn">Read More</div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="container position-relative">
+                        <div class="quote1">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote1.webp">
+                                <source type="image/png" srcset="/static/img/quote1.png">
+                                <img src="../static/img/quote1.png" alt="">
+                            </picture>
+                        </div>
+                        <div class="quote2">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote2.webp">
+                                <source type="image/png" srcset="/static/img/quote2.png">
+                                <img src="../static/img/quote2.png" alt="">
+                            </picture>
+                        </div>
+                    </div>
+                    <div class="testimonials-container">
+                        <div class="identity">
+                            <div class="identity-img">
+                                <picture>
+                                    <source type="image/webp" srcset="/static/img/Deep.webp">
+                                    <source type="image/png" srcset="/static/img/Deep.png">
+                                    <img src="../static/img/Deep.png" alt="">
+                                </picture>
+                            </div>
+                            <p class="testimonials-name">Deep</p>
+                            <p class="testimonials-place">Delhi, Agra and Mathura Trip</p>
+                        </div>
+                        <div class="testimonials-para">
+                            <hr>
+                            <p>I had a fantastic service which took me to Delhi , Agra and Mathura. Ravindra accompanied
+                                me and my family for this 4 days trip, he is an excellent driver and the car was very
+                                clean and comfortable. We visited lot of places in Delhi, Taj Mahal, Agra Fort ,
+                                Fatehpur and Mathura temple learnt about thier history, art, culture and much more.
+                                Thank you ravindra for this fantastic trip! I highly recommend this service. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="container position-relative">
+                        <div class="quote1">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote1.webp">
+                                <source type="image/png" srcset="/static/img/quote1.png">
+                                <img src="../static/img/quote1.png" alt="">
+                            </picture>
+                        </div>
+                        <div class="quote2">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote2.webp">
+                                <source type="image/png" srcset="/static/img/quote2.png">
+                                <img src="../static/img/quote2.png" alt="">
+                            </picture>
+                        </div>
+                    </div>
+                    <div class="testimonials-container">
+                        <div class="identity">
+                            <div class="identity-img">
+                                <picture>
+                                    <source type="image/webp" srcset="/static/img/Adele.webp">
+                                    <source type="image/png" srcset="/static/img/Adele.png">
+                                    <img src="../static/img/Adele.png" alt="">
+                                </picture>
+                            </div>
+                            <p class="testimonials-name">Adele R</p>
+                            <p class="testimonials-place">Quick tour of the Delhi sights</p>
+                        </div>
+                        <div class="testimonials-para">
+                            <hr>
+                            <p>We only had a couple of hours for a quick tour of some of the Delhi sights between
+                                flights. Garmeet Singh was our driver and he really looked after us. He spoke English
+                                well and took time ask what we wanted to see and explain where we were. He was very
+                                respectful and kind and we feel we’ve had a little experience of Delhi. </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <div class="container position-relative">
+                        <div class="quote1">              
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote1.webp">
+                                <source type="image/png" srcset="/static/img/quote1.png">
+                                <img src="../static/img/quote1.png" alt="">
+                            </picture>
+                        </div>
+                        <div class="quote2">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote2.webp">
+                                <source type="image/png" srcset="/static/img/quote2.png">
+                                <img src="../static/img/quote2.png" alt="">
+                            </picture>
+                        </div>
+                    </div>
+                    <div class="testimonials-container">
+                        <div class="identity">
+                            <div class="identity-img">
+                                <picture>
+                                    <source type="image/webp" srcset="/static/img/Sophie.webp">
+                                    <source type="image/png" srcset="/static/img/Sophie.png">
+                                    <img src="../static/img/Sophie.png" alt="">
+                                </picture>
+                            </div>
+                            <p class="testimonials-name">Sophie V</p>
+                            <p class="testimonials-place">Super kind driver, super clean car with AC and water, nice
+                                meeting</p>
+                        </div>
+                        <div class="testimonials-para">
+                            <hr>
+                            <p>I had a very good and friendly drive from mandawa to delhi with Narendra Kumarar , super
+                                good driver, calm and discreet We stop on the way to have a chai in a nice place, he
+                                gave me many trips and infos on Indian culture . </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="swiper-slide">
+                    <div class="container position-relative">
+                        <div class="quote1">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote1.webp">
+                                <source type="image/png" srcset="/static/img/quote1.png">
+                                <img src="../static/img/quote1.png" alt="">
+                            </picture>
+                        </div>
+                        <div class="quote2">
+                            <picture>
+                                <source type="image/webp" srcset="/static/img/quote2.webp">
+                                <source type="image/png" srcset="/static/img/quote2.png">
+                                <img src="../static/img/quote2.png" alt="">
+                            </picture>
+                        </div>
+                    </div>
+                    <div class="testimonials-container">
+                        <div class="identity">
+                            <div class="identity-img">
+                                <picture>
+                                    <source type="image/webp" srcset="/static/img/kids.webp">
+                                    <source type="image/png" srcset="/static/img/kids.png">
+                                    <img src="../static/img/kids.png" alt="">
+                                </picture>
+                            </div>
+                            <p class="testimonials-name">Marine S</p>
+                            <p class="testimonials-place">Amazing experience visiting Rajasthan with Narendra!!</p>
+                        </div>
+                        <div class="testimonials-para">
+                            <hr>
+                            <p>Amazing experience visiting Rajasthan with Narendra!!We spent one week visiting Delhi,
+                                Agra, Jaipur and Udaipur. The driver Narendra has been great and very safe. Always
+                                taking care of the family and our four kids. He kept explaining us the history of the
+                                various places, sharing the good addresses, teaching us Indi, organising elephant ride,
+                                finding out guides and walking out with us in the Old Delhi. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+        </div>
+    </div>
+
+    <div id="faq">
+        <div class="container position-relative">
+            <div class="faq-design"></div>
+            <h1 class="faq-heading">FAQ'S</h1>
+        </div>
+        <div class="row featurette">
+            <div class="col-md-5 faq-img">
+                <picture>
+                    <source type="image/webp" srcset="/static/img/faq.webp">
+                    <source type="image/png" srcset="/static/img/faq.png">
+                    <img src="../static/img/faq.png" alt="">
+                </picture>
+            </div>
+            <div class="col-md-7 d-flex align-items-center justify-content-center faqs">
+                <div class="accordion minWidth" id="accordionExample">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                How long can I hire a car and driver?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                We offer car and driver services for a flexible duration, ranging from a few hours to
+                                several days, depending on your needs.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                How long is a driver on duty?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Our drivers work up to 8 hours for local trips and up to 12 hours for outstation trips,
+                                ensuring that they are well-rested and follow all necessary safety guidelines to provide
+                                you with a comfortable and safe travel experience.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                What types of vehicles do you offer for taxi services?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                We have a range of vehicles that suits all your needs when it comes to travelling - 4
+                                seater sedans (Etios, Ciaz, Dzire), AC hatchbacks like Wagon R, 6-7 seater SUVs (Innova,
+                                Ertiga, Crysta ) to 12,18,21,27 seater tempo traveler.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Do you provide airport pickup and drop-off services?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Yes, we provide airport pickup and drop-off services as part of our taxi services. Our
+                                professional drivers will be waiting for you at the airport to ensure that you have a
+                                hassle-free and comfortable transfer to your destination. We monitor flight schedules to
+                                ensure that we arrive at the airport on time, and we offer competitive prices for our
+                                airport pickup and drop-off services.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                What if I need to cancel my reservation ?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                We understand that travel plans can change unexpectedly, and we do not want our
+                                customers to be penalized for it. That's why we offer 48 hours zero cancellation
+                                charges, ensuring that our customers can cancel their bookings without any hassle or
+                                charges.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cta" class="mt-5">
+        <div id="bookcar" class="row featurette">
+            <div class="col-md-7 order-md-2 d-flex flex-column align-items-center justify-content-center">
+                <h2 class="featurette-heading lh-1 cta-heading">book a car.!</h2>
+                <p class="cta-para">Save Your <span class="yellow-text">Time</span> & Save Your <span
+                        class="yellow-text">Money</span></p>
+                <button class="cta-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Book Taxi</button>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <div id="cta-img">
+                    <picture>
+                        <source type="image/webp" srcset="/static/img/cta-img.webp">
+                        <source type="image/png" srcset="/static/img/cta-img.png">
+                        <img src="../static/img/cta-img.png" alt="">
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <footer class="py-5">
+                <div class="d-flex justify-content-center footer-container">
+                    <div class=" mb-3 footer-items">
+                        <h5 class="footer-headings">ABOUT US</h5>
+                        <ul class="nav flex-column footer-about mt-3">
+                            <li>Your affordable and reliable cab service provider based in Delhi. We offer off-station
+                                tours, local taxi bookings, airport pickups, and casual rides at the lowest prices in
+                                the market.</li>
+                            <li class="social-icons d-flex align-items-center mt-4">
+                                <picture>
+                                    <source type="image/webp" srcset="/static/img/fb.webp">
+                                    <source type="image/png" srcset="/static/img/fb.png">
+                                    <div class="outer-logo">
+                                        <a href="https://www.facebook.com/northernindiatrips/" target="_blank"><img src="../static/img/fb.png" alt="Facebook"></a>
+                                        <div class="inner-logo">
+                                        <a href="https://www.facebook.com/northernindiatrips/" target="_blank"><img src="../static/img/facebook-glow.png" alt="Facebook"></a>
+                                        </div>
+                                    </div>
+                                </picture>
+                                
+                                <picture>
+                                    <source type="image/webp" srcset="/static/img/insta.webp">
+                                    <source type="image/png" srcset="/static/img/insta.png">
+                                    <div class="outer-logo">
+                                        <a href="https://www.instagram.com/northernindiatrips/" target="_blank"><img src="../static/img/insta.png" alt="Instagram"></a>
+                                        <div class="inner-logo">
+                                            <a href="https://www.instagram.com/northernindiatrips/" target="_blank"><img src="../static/img/insta-glow.png" alt="Instagram"></a>
+                                        </div>
+                                    </div>
+                                </picture>
+                                <picture>
+                                    <source type="image/png" srcset="/static/img/trpadvisor-logo.png">
+                                    <div class="outer-logo">
+                                        <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d14171538-Reviews-Northern_India_Trips-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank"><img src="../static/img/trpadvisor-logo.png" alt="tripadvisor"></a>
+                                        <div class="inner-logo">
+                                            <a href="https://www.tripadvisor.in/Attraction_Review-g304551-d14171538-Reviews-Northern_India_Trips-New_Delhi_National_Capital_Territory_of_Delhi.html" target="_blank"><img src="../static/img/tripadvisor-glow.png" alt="tripadvisor"></a>
+                                        </div>
+                                    </div>
+                                    </picture>
+                                </li>
+                            <li class="mt-5 footer-last desk-terms">TERMS AND CONDITIONS</li>
+                        </ul>
+                    </div>
+
+                    <div class=" mb-3 footer-items">
+                        <h5 class="footer-headings popular-cities">POPULAR CITIES</h5>
+                        <ul class="nav flex-column mt-3">
+                            <li class="nav-item mb-2">
+                                <p class="no-gap">DELHI</p>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <p class="no-gap">JAIPUR</p>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <p class="no-gap">HARIDWAR</p>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <p class="no-gap">AGRA</p>
+                            </li>
+                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 mt-5 footer-last">COOKIE
+                                    POLICY</a></li>
+                            <li class="mb-5 footer-last mobi-terms">TERMS AND CONDITIONS</li>
+
+                        </ul>
+                    </div>
+
+                    <div class="offset-md-1 mb-3 footer-items">
+                        <div class="contact-details">
+                            <p class="footer-headings">CONTACT</p>
+                            <p class="contact-details-text">+91 97179 38119</p>
+                            <p class="contact-details-text">+91 97273 69000</p>
+
+                        </div>
+                        <div class="email-details mt-5">
+                            <p class="footer-headings">EMAIL</p>
+                            <p class="contact-details-text">info@northernindiatrips.in</p>
+                        </div>
+                        <form class="mt-5">
+                            <div class="d-flex flex-sm-row mailUs">
+                                <label for="newsletter1" class="visually-hidden">Email address</label>
+                                <input id="newsletter1" type="text" class="form-control"
+                                    placeholder="Enter your email..." fdprocessedid="2jd9et">
+                                <button class="btn subscribe-btn" type="button" fdprocessedid="kwmhnh"><img
+                                        src="../static/img/subscribe.png" alt=""></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </footer>
+        </div>
+    </div>
+    <div id="loading">
+        <div id="loader">
+            <picture>
+                <source type="image/webp" srcset="/static/img/loader.webp">
+                <source type="image/png" srcset="/static/img/loader.png">
+                <img src="../static/img/loader.png" alt="">
+            </picture>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div id="banner-form" class="w-100">
+                        <div id="banner-form-btn" class="d-flex justify-content-center align-items-center">
+                            <button type="button" class="outstation active btn btn-light w-100 me-1 rounded-0">
+                                <span class="btn-img">
+                                    <picture>
+                                        <source type="image/webp" srcset="/static/img/outstation.webp">
+                                        <source type="image/png" srcset="/static/img/outstation.png">
+                                        <img src="../static/img/outstation.png" alt="">
+                                    </picture>
+                                </span> Outstation
+                            </button>
+                            <button type="button" class="local btn btn-light w-100 ms-1 rounded-0">
+                                <span class="btn-img">
+                                    <picture>
+                                        <source type="image/webp" srcset="/static/img/local.webp">
+                                        <source type="image/png" srcset="/static/img/local.png">
+                                        <img src="../static/img/local.png" alt="">
+                                    </picture>
+                                </span>Local
+                            </button>
+                        </div>
+                        <div id="radio-btn" class="d-flex justify-content-between align-items-center mt-4">
+                            <div class="form-check w-100 oneWay">
+                                <input class="form-check-input custom-radio-btn" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" checked>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    One Way
+                                </label>
+                            </div>
+                            <div class="form-check w-100 roundTrip">
+                                <input class="form-check-input custom-radio-btn" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Round Trip
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-details">
+                            <div class="picknDrop">
+                                <label for="pickup_location">Picking Up Location:</label>
+                                <input type="text" id="pickup_location" name="pickup_location" class="form-control my-2" placeholder="Enter pickup location"
+                                    aria-label="From">
+                            </div>
+                            <div class="picknDrop">
+                                <label for="drop">Dropping Location:</label>
+                                <input type="text" id="drop_location" name="drop_location" class="form-control my-2" placeholder="Enter drop Location"
+                                    aria-label="To">
+                            </div>
+                            <hr>
+                            <div class="d-flex form-last-row">
+                                <div id="contact-number">
+                                    <label for="contact">Contact Number:</label>
+                                    <input type="text" class="form-control mt-2" placeholder="Enter Contact Number"
+                                        aria-label="Last name">
+                                </div>
+                                <button type="button"
+                                    class="d-flex justify-content-center align-items-center banner-form-btn">Book
+                                    Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky-bottom -->
+    <div id="fixed-bottom" class="btn-group fixed-bottom w-100 justify-content-center d-none" role="group"
+        aria-label="Basic mixed styles example">
+        <a href="https://wa.me/919717938119?text=Hello There!" class="w-75"
+            style="text-decoration: none; margin-right: 1px;">
+            <button type="button" class="btn btn-light w-100"><svg xmlns="http://www.w3.org/2000/svg" width="15.5"
+                    height="15.5" fill="currentColor" class="bi bi-whatsapp mx-1" viewBox="0 0 16 16">
+                    <path
+                        d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                </svg> WhatsApp
+            </button>
+        </a>
+        <a href="tel: 09717938119" class="w-75" style="text-decoration: none; margin-right: 1px;">
+            <button type="button" class="btn btn-light w-100"><svg xmlns="http://www.w3.org/2000/svg" width="15.5"
+                    height="15.5" fill="currentColor" class="bi bi-telephone-fill mx-1" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                </svg> Call
+            </button>
+        </a>
+        <a href="" class="w-75" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-light w-100"><svg xmlns="http://www.w3.org/2000/svg" width="15.5"
+                    height="15.5" fill="currentColor" class="bi bi-chat-left-text mx-1" viewBox="0 0 16 16">
+                    <path
+                        d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                    <path
+                        d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                </svg> Enquiry
+            </button>
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.testimonials-swiper', {
+            // Optional parameters
+            loop: true,
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+        });
+    </script>
+    <script>
+        const swiper2 = new Swiper('.packages-cards-mobi', {
+            // Optional parameters
+            loop: true,
+            slidesPerView: "1.3",
+            grabCursor: true,
+            spaceBetween: 0,
+            centeredSlides: true,
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+        });
+    </script>
+    <script>
+        window.addEventListener("load", function () {
+            const loading = document.getElementById("loading");
+            loading.style.display = "none";
+        });
+    </script>
+    <script src="../static/index.js"></script>
+</body>
+
+</html>
